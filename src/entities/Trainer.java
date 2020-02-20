@@ -3,23 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.projet.entities;
+package entities;
 
 /**
  *
  * @author Mey
  */
 public class Trainer {
-    private int idTrainer;
+    int idTrainer;
     private String NameT;
-    private int CinT;
+    private String CinT;
     private String Speciality;
 
     public Trainer() {
     }
     
-
-    public Trainer(int idTrainer, String NameT, int CinT, String Speciality) {
+    /**
+     *
+     * @param idTrainer
+     * @param NameT
+     * @param CinT
+     * @param Speciality
+     */
+    public Trainer(int idTrainer, String NameT, String CinT, String Speciality) {
         this.idTrainer = idTrainer;
         this.NameT = NameT;
         this.CinT = CinT;
@@ -42,11 +48,11 @@ public class Trainer {
         this.NameT = NameT;
     }
 
-    public int getCinT() {
+    public String getCinT() {
         return CinT;
     }
 
-    public void setCinT(int CinT) {
+    public void setCinT(String CinT) {
         this.CinT = CinT;
     }
 

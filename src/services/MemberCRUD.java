@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.projet.servicies;
+package services;
 
-import edu.projet.entities.Member;
-import edu.projet.entities.Member;
-import edu.projet.utils.MyConnection;
+import entities.Member;
+import entities.Member;
+import utils.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +31,7 @@ public class MemberCRUD {
 
     public void ajouterMember(Member m) {
         try {
-            String requete2 = "INSERT INTO  Member VALUES (?,?)";
+            String requete2 = "INSERT INTO  Member VALUES (?,?,?,?,?)";
             PreparedStatement pst = cn2.prepareStatement(requete2);
             pst.setInt(1, m.getIdM());
             pst.setString(2, m.getNameM());

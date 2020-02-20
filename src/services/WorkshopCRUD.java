@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.projet.servicies;
+package services;
 
-import edu.projet.entities.Workshop;
-import edu.projet.utils.MyConnection;
+import entities.Trainer;
+import entities.Workshop;
+import utils.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,8 +41,8 @@ public class WorkshopCRUD {
             pst.setString(3, w.getDateW());
             pst.setString(4, w.getDuration());
             pst.setString(5, w.getAddressW());
-            pst.setInt(6, w.getIdTrainer());
-
+            pst.setInt(6,w.getMyTrainer().getIdTrainer());
+            
             pst.executeUpdate();
             System.out.println("added");
 
@@ -91,29 +92,89 @@ public class WorkshopCRUD {
         }
 
     }
+    
+    
+      public Workshop rechercherWorkshopByID(int idWorkshop) {
+     Workshop w = null;
+            try
+        {
+            Statement ps = cn2.createStatement();
+            Statement ps2 = cn2.createStatement();
+            ResultSet res;
+            ResultSet res2 ;
+            res=ps.executeQuery("select w.*,t.* from Workshop w inner join trainer t on w.idTrainer = t.idTrainer  where idW="+idWorkshop);
+            while(res.next())
+            { 
+                    Trainer t = new Trainer(res.getInt("idTrainer"),res.getString("NameT"),res.getString("CinT") , res.getString("Speciality"));
+                    w = new Workshop(res.getString("NameW"),res.getInt("idW"),res.getString("DateW"),res.getString("Duration"),res.getString("AddressW"),t);
+                    int idW = res.getInt("idW"); 
+                    w. setIdW(idW);
+                    w.setNameW(res.getString("NameW"));
+            }
+        }catch(SQLException e)
+        {
+           System.out.println("Workshop Introuvable"+e.getMessage());
+        } 
+         return w;
+          
+ }
+      
+            public Workshop rechercheByName(String nomworkshop) {
+           
+         
+        
+        try { 
+            Statement ps=cn2.createStatement();
+            ResultSet res;
+            
+            res=ps.executeQuery("select * from Workshop where NameW like '%"+nomworkshop+"%' ");
+            while(res.next())
+            {
+               
+                String NameW=res.getString("NameW");
+                 int idW = res.getInt("idW");
+                String DateW=res.getString("DateW"); 
+                String Duration=res.getString("Duration");
+                String AddressW=res.getString("AddressW");
+                int  idTrainer=res.getInt("idTrainer");
+ 
+                
+               
+               
+              
+             return  new  Workshop(idW, NameW, DateW, Duration  ,AddressW, idTrainer);   
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur"+ex.getMessage());
+        }
+        return null;
+    }
 
     /**
      *
      * @return
      */
     public List<Workshop> afficherWorkshop() {
+        
         ArrayList<Workshop> per = new ArrayList<>();
         try {
-
-            String requete3 = "SELECT * FROM Workshop";
+ ResultSet res;
+            String requete3 = "select w.*,t.* from Workshop w inner join trainer t on w.idTrainer = t.idTrainer";
             PreparedStatement pst2 = cn2.prepareStatement(requete3);
             ResultSet rs = pst2.executeQuery();
 
             while (rs.next()) {
                 Workshop w;
                 w = new Workshop();
-
+  Trainer t = new Trainer(rs.getInt("idTrainer"),rs.getString("NameT"),rs.getString("CinT") , rs.getString("Speciality"));
                 w.setIdW(rs.getInt("idW"));
                 w.setNameW(rs.getString("NameW"));
-                w.setDateW(rs.getString("Date"));
+                w.setDateW(rs.getString("DateW"));
                 w.setDuration(rs.getString("Duration"));
                 w.setAddressW(rs.getString("AddressW"));
-                w.setIdTrainer(rs.getInt("idTrainer"));
+                w.setMyTrainer(t);
+                
 
                 per.add(w);
 

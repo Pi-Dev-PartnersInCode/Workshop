@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.projet.servicies;
+package services;
 
-import edu.projet.entities.Trainer;
-import edu.projet.entities.Trainer;
-import edu.projet.utils.MyConnection;
+import entities.Trainer;
+import entities.Trainer;
+import utils.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,7 +35,7 @@ public class TrainerCRUD {
             PreparedStatement pst = cn2.prepareStatement(requete2);
             pst.setInt(1, t.getIdTrainer());
             pst.setString(2, t.getNameT());
-            pst.setInt(3, t.getCinT());
+            pst.setString(3, t.getCinT());
             pst.setString(4, t.getSpeciality());
             
 
@@ -56,7 +56,7 @@ public class TrainerCRUD {
             ps = cn2.prepareStatement(sql);
 
             ps.setString(1, t.getNameT());
-            ps.setInt(2, t.getCinT());
+            ps.setString(2, t.getCinT());
             ps.setString(3, t.getSpeciality());
                         ps.setInt(4, t.getIdTrainer());
 
@@ -98,7 +98,7 @@ public class TrainerCRUD {
 
                 t.setIdTrainer(rs.getInt("idTrainer"));
                t.setNameT(rs.getString("NameT"));
-                t.setCinT(rs.getInt("CinT"));
+                t.setCinT(rs.getString("CinT"));
                 t.setSpeciality(rs.getString("Speciality"));
             
 

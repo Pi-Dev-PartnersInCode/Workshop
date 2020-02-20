@@ -3,44 +3,55 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.projet.entities;
+package entities;
 
 /**
  *
  * @author Mey
  */
 public class Workshop {
-    private String NameW ;
-    private int idW ;
-    private String DateW ;
-    private String Duration ;
-    private String AddressW ;
-    private int idTrainer ;
 
+    private String NameW;
+    private int idW;
+    private String DateW;
+    private String Duration;
+    private String AddressW;
+
+    private Trainer myTrainer;
+
+    public Workshop(String NameW, int idW, String DateW, String Duration, String AddressW, Trainer myTrainer) {
+        this.NameW = NameW;
+        this.idW = idW;
+        this.DateW = DateW;
+        this.Duration = Duration;
+        this.AddressW = AddressW;
+        this.myTrainer = myTrainer;
+    }
     public Workshop(String NameW, int idW, String DateW, String Duration, String AddressW, int idTrainer) {
         this.NameW = NameW;
         this.idW = idW;
         this.DateW = DateW;
         this.Duration = Duration;
         this.AddressW = AddressW;
-        this.idTrainer = idTrainer;
-   
-    
-    
+        
+        this.myTrainer.setIdTrainer(idTrainer); 
     }
 
     public Workshop() {
-         this.NameW = " ";
+        this.NameW = " ";
         this.idW = 0;
         this.DateW = " ";
         this.Duration = " ";
         this.AddressW = " ";
-        this.idTrainer = 0;
-       
+        this.myTrainer = null;
     }
 
     public Workshop(Workshop w) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Workshop(int idW, String NameW, String DateW, String Duration, String AddressW, int idTrainer) {
+     
     }
 
     public String getNameW() {
@@ -71,6 +82,7 @@ public class Workshop {
         return Duration;
     }
 
+    
     public void setDuration(String Duration) {
         this.Duration = Duration;
     }
@@ -83,13 +95,14 @@ public class Workshop {
         this.AddressW = AddressW;
     }
 
-    public int getIdTrainer() {
-        return idTrainer;
+    public Trainer getMyTrainer() {
+        return myTrainer;
     }
 
-    public void setIdTrainer(int idTrainer) {
-        this.idTrainer = idTrainer;
+    public void setMyTrainer(Trainer myTrainer) {
+        this.myTrainer = myTrainer;
     }
+
 
     @Override
     public int hashCode() {
@@ -115,12 +128,7 @@ public class Workshop {
 
     @Override
     public String toString() {
-        return "Workshop{" + "NameW=" + NameW + ", idW=" + idW + ", DateW=" + DateW + ", Duration=" + Duration + ", AddressW=" + AddressW + ", idTrainer=" + idTrainer + "\n";
+        return "Workshop{" + "NameW=" + NameW + ", idW=" + idW + ", DateW=" + DateW + ", Duration=" + Duration + ", AddressW=" + AddressW + ", idTrainer=" + myTrainer.getIdTrainer()+ "\n";
     }
-    
-    
-    
-    
-    
-    
+
 }
